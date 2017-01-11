@@ -1,0 +1,12 @@
+{
+  "name": "JiraToggle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "author": "jasper decaestecker",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "toggl-api": "^1.0.1"
+  }
+}
