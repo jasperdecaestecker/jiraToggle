@@ -1,6 +1,9 @@
 var express = require('express');
 var TogglClient = require('toggl-api');
 var config = require('./config');
+var JiraApi = require('jira').JiraApi;
+
+var jira = new JiraApi('https', config.JIRA_HOST, 443, config.JIRA_USERNAME, config.JIRA_PASSWORD, '2');
 
 var app = express();
 var toggl = new TogglClient({apiToken: config.TOGGLE_APIKEY});
@@ -23,6 +26,14 @@ app.get('/create', function(req, res) {
 app.get('/info', function(req, res) {
 	toggl.getUserData({with_related_data:true}, function(err,result) {
 		res.send(result);
+	});
+});
+
+app.get('/jira', function(req, res) {
+	jira.findIssue('104022', function(error, issue) {
+		console.log('error: ' + error);
+	    console.log('issue: ' + issue);
+	    res.send(issue);
 	});
 });
 

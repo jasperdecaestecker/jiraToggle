@@ -7,6 +7,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
+    "jira": "^0.9.2",
     "toggl-api": "^1.0.1"
   }
 }
