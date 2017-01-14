@@ -37,6 +37,38 @@ app.get('/jira', function(req, res) {
 	});
 });
 
+app.get('/fullworklog', function(req, res) {
+	var start = new Date();
+	start.setHours(0,0,0,0);
+
+	var end = new Date();
+	end.setHours(23,59,59,999);
+
+	var workList = {};
+	toggl.getTimeEntries(start.toISOString(), end.toISOString(), function(error, success) {
+		success.forEach(function(timeEntry, index) {
+			var description = timeEntry.description;
+			var hosNumberKey = description.substr(0,description.indexOf(' '));
+			// console.log(timeEntry);
+			if(!workList[hosNumberKey]) {
+				workList[hosNumberKey] = 0;
+			}
+			workList[hosNumberKey] += timeEntry.duration;
+			console.log(hosNumberKey);
+			console.log(workList);
+		})
+	});	
+
+
+	jira.searchJira('key = "HOS-7262"', null, function(error, success) {
+		//onsole.log(success);
+		res.send(success);
+
+
+	});
+
+});
+
 app.listen(3000, function () {
   console.log('jiraToggle listening on port 3000!')
 })

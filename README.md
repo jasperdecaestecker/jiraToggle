@@ -13,3 +13,7 @@ exports.JIRA_APIKEY = '123invalidjirakey';
 ## Running application
 `node app.js` You can now access the app on port 3000
 
+##Develop
+- [Toggle node api wrapper] (https://github.com/7eggs/node-toggl-api)
+- [Jira node api wrapper] (https://github.com/steves/node-jira)
+
