@@ -54,19 +54,26 @@ app.get('/fullworklog', function(req, res) {
 				workList[hosNumberKey] = 0;
 			}
 			workList[hosNumberKey] += timeEntry.duration;
-			console.log(hosNumberKey);
-			console.log(workList);
-		})
+		});
+
+		var searchQuery = '';
+		Object.keys(workList).forEach(function(workListId, index) {
+			searchQuery += 'key = "' + workListId + '"';
+			if(index < Object.keys(workList).length - 1) {
+				searchQuery += ' OR ';
+			}
+		});
+
+		console.log(searchQuery);
+		//res.send(searchQuery);
+		jira.searchJira(searchQuery, null, function(error, success) {
+			console.log(success.issues);
+			console.log(success.issues.length);
+			res.send(success);
+
+		});
+
 	});	
-
-
-	jira.searchJira('key = "HOS-7262"', null, function(error, success) {
-		//onsole.log(success);
-		res.send(success);
-
-
-	});
-
 });
 
 app.listen(3000, function () {
