@@ -16,31 +16,13 @@ app.use(function(req, res, next) {
   next();
 });
 
-
 app.get('/', function (req, res) {
   res.send('These are not the droids you are looking for.');
 })
 
-app.get('/create', function(req, res) {
-	var now = new Date();
-	now = now.toISOString()
-	var dummyData = {wid:workspaceId, start:now, description:"ABC",duration:1200,created_with:"jiraToggle"};
-	toggl.createTimeEntry(dummyData, function(err, success) {
-		res.send(success);
-	})
-});
-
-app.get('/info', function(req, res) {
+app.get('/account', function(req, res) {
 	toggl.getUserData({with_related_data:true}, function(err,result) {
 		res.send(result);
-	});
-});
-
-app.get('/jira', function(req, res) {
-	jira.findIssue('104022', function(error, issue) {
-		console.log('error: ' + error);
-	    console.log('issue: ' + issue);
-	    res.send(issue);
 	});
 });
 
@@ -56,7 +38,6 @@ app.get('/fullworklog', function(req, res) {
 		success.forEach(function(timeEntry, index) {
 			var description = timeEntry.description;
 			var hosNumberKey = description.substr(0,description.indexOf(' '));
-			// console.log(timeEntry);
 			if(!workList[hosNumberKey]) {
 				workList[hosNumberKey] = 0;
 			}
@@ -71,13 +52,9 @@ app.get('/fullworklog', function(req, res) {
 			}
 		});
 
-		console.log(searchQuery);
-		//res.send(searchQuery);
 		jira.searchJira(searchQuery, null, function(error, success) {
-			console.log(success.issues);
-			console.log(success.issues.length);
+			success.timeEntry = workList 
 			res.send(success);
-
 		});
 
 	});	

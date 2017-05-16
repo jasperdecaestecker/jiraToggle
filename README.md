@@ -10,8 +10,11 @@ will be somethimg like this.
 exports.TOGGLE_APIKEY = '123invalidtogglekey';
 exports.JIRA_APIKEY = '123invalidjirakey';
 
-## Running application
+## Running server application
 `node app.js` You can now access the app on port 3000
+
+## Running application
+`npm start` will build the src code and inject into app.js => app can be run by opening index.html
 
 ##Develop
 - [Toggle node api wrapper] (https://github.com/7eggs/node-toggl-api)

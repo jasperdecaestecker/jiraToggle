@@ -1,5 +1,9 @@
 var m = require("mithril")
 
-var IssueList = require("./views/IssueList")
+var WorkLogList = require("./views/WorkLogList");
+var accountInfo = require("./views/accountInfo")
 
-m.mount(document.body, IssueList)
+m.route(document.body, "/work", {
+    "/work": WorkLogList,
+    "/account": accountInfo
+})
